@@ -1,0 +1,17 @@
+version: "3"
+services: 
+    balance:
+        build: balance/
+        command: python3 ./balance.py
+        ports: 
+         - "8082:8082"
+    instance1:
+        build: instances/
+        command: python3 ./instance1.py
+        ports:
+         - "8080:8080"
+    instance2:
+        build: instances/
+        command: python3 ./instance2.py
+        ports:
+         - "8081:8081"
