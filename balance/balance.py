@@ -7,9 +7,9 @@ app = Flask(__name__)
 @app.route("/<filename>", methods=['GET', 'PUT', 'DELETE'])
 def r(filename):
   if len(filename) > 6:
-    url = 'http://localhost:8080/storage/' + filename
+    url = 'http://instance1:8080/storage/' + filename
   else:
-    url = 'http://localhost:8081/storage/' + filename
+    url = 'http://instance2:8081/storage/' + filename
   if request.method == 'GET':
     res = requests.get(url)
     if res.status_code == 200:
@@ -25,4 +25,4 @@ def r(filename):
     return make_response("", res.status_code)
 
 if __name__ == "__main__":
-    app.run(port=8082)
+    app.run(host='0.0.0.0', port=8082)
