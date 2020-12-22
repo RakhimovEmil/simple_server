@@ -1,14 +1,24 @@
 version: "3"
 services: 
     balance:
+        image: python:3
         build: balance/
+        container_name: balance
         ports: 
          - "8082:8082"
     instance1:
+        image: python:3
         build: instances/
+        container_name: instance1
         ports:
          - "8080:8080"
+        depends_on:
+         - balance
     instance2:
+        image: python:3
         build: instances/
+        container_name: instance2
         ports:
          - "8081:8081"
+        depends_on:
+         - balance
