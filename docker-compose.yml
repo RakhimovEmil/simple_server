@@ -1,24 +1,34 @@
 version: "3"
 services: 
     balance:
-        image: python:3
         build: balance/
         container_name: balance
         ports: 
          - "8082:8082"
+        environment:
+         - HOSTS=instance1:8080,instance2:8080
+        networks:
+         - my_network
     instance1:
-        image: python:3
+        image: emilrakhimov/instances:latest
         build: instances/
         container_name: instance1
-        ports:
-         - "8080:8080"
+ #       ports:
+ #        - "8080:8080"
         depends_on:
          - balance
+        networks:
+         - my_network
     instance2:
-        image: python:3
+        image: emilrakhimov/instances:latest
         build: instances/
         container_name: instance2
-        ports:
-         - "8081:8081"
+#        ports:
+#         - "8081:8081"
         depends_on:
          - balance
+        networks:
+         - my_network
+         
+networks:
+  my_network
